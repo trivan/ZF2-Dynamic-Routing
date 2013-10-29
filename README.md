@@ -44,15 +44,21 @@ Virtual Host
 
 
 And then create shortcut to sites-enables : sudo a2ensite example.com
+
 Next turn on mod_rewrite : sudo a2enmod rewrite
+
 Finally restart apache: service apache2 restart
 
 
 Note : 
+
 Turn on error reporting in php
+
 gedit /etc/php5/apache2/php.ini
+
 in php.ini (probably different for php and cli)
 
 error_reporting = E_ALL
+
 display_errors = 1
 
