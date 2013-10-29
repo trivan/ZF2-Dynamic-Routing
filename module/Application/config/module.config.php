@@ -20,6 +20,23 @@ return array(
                     ),
                 ),
             ),
+
+        		//router for all
+        		// let 's test now : <domain-name>/application/page/guide
+        		'restful' => array(
+        				'type'    => 'Zend\Mvc\Router\Http\Segment',
+        				'options' => array(
+        						'route'       => '/:module/[:controller[/:action][.:formatter][/:id]]',
+        						'constraints' => array(
+        								'module' => '[a-zA-Z][a-zA-Z0-9_-]*',
+        								'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+        								'formatter'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+        								'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+        								'id'         => '[a-zA-Z0-9_-]*'
+        						),
+        				),
+        		),
+
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -73,7 +90,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+//             'Application\Controller\Page' => 'Application\Controller\PageController',
         ),
     ),
     'view_manager' => array(
