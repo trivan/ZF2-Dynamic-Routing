@@ -43,11 +43,13 @@ Virtual Host
 </VirtualHost>
 
 
+
 And then create shortcut to sites-enables : sudo a2ensite example.com
 
 Next turn on mod_rewrite : sudo a2enmod rewrite
 
 Finally restart apache: service apache2 restart
+
 
 
 Note : 
