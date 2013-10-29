@@ -1,14 +1,13 @@
-ZendSkeletonApplication
+Zend2Examples
 =======================
 
 Introduction
 ------------
-This is a simple, skeleton application using the ZF2 MVC layer and module
-systems. This application is meant to be used as a starting place for those
-looking to get their feet wet with ZF2.
+This is a simple, Zend2Examples application using the ZF2 MVC layer and module
+systems.
 
 
-Installation
+Installation Skeleton
 ------------
 
 Using Composer (recommended)
@@ -17,7 +16,7 @@ The recommended way to get a working copy of this project is to clone the reposi
 and use `composer` to install dependencies using the `create-project` command:
 
     curl -s https://getcomposer.org/installer | php --
-    php composer.phar create-project -sdev --repository-url="https://packages.zendframework.com" zendframework/skeleton-application path/to/install
+    php composer.phar create-project -sdev --repository-url="http://packages.zendframework.com" zendframework/skeleton-application path/to/install
 
 Alternately, clone the repository and manually invoke `composer` using the shipped
 `composer.phar`:
@@ -40,22 +39,70 @@ then pass it to `tar`:
 You would then invoke `composer` to install dependencies per the previous
 example.
 
-Using Git submodules
+Using Git
 --------------------
 Alternatively, you can install using native git submodules:
 
-    git clone git://github.com/zendframework/ZendSkeletonApplication.git --recursive
+    git clone git://github.com/trivan/Zend2Examples.git
 
 Virtual Host
 ------------
-Afterwards, set up a virtual host to point to the public/ directory of the
-project and you should be ready to go!
 
-Alternatively — if you are using PHP 5.4 or above — you may start the internal PHP cli-server in the public
-directory:
+<VirtualHost *:80>
 
-    cd public
-    php -S 0.0.0.0:8080 index.php
+    ServerName zend2examples.com
+    
+    DocumentRoot /var/www/zend2examples/public
+    
+    SetEnv APPLICATION_ENV "development"
+    
 
-This will start the cli-server on port 8080, and bind it to all network
-interfaces.
+    <Directory />
+        Options All
+        AllowOverride All
+    </Directory>
+
+    <Directory /var/www/zend2examples/>
+    DirectoryIndex index.php
+        AllowOverride All
+        Order allow,deny
+        allow from all
+    </Directory>
+
+    ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+    <Directory "/usr/lib/cgi-bin">
+        AllowOverride All
+        Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+
+    # Possible values include: debug, info, notice, warn, error, crit,
+    # alert, emerg.
+    LogLevel warn
+
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+
+And then create shortcut to sites-enables : sudo a2ensite example.com
+
+Next turn on mod_rewrite : sudo a2enmod rewrite
+
+Finally restart apache: service apache2 restart
+
+
+Note : 
+
+Turn on error reporting in php
+
+gedit /etc/php5/apache2/php.ini
+
+in php.ini (probably different for php and cli)
+
+error_reporting = E_ALL
+
+display_errors = 1
+
